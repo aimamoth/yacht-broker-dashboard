@@ -269,6 +269,9 @@
   .feature-list{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px 16px; margin:0 0 20px; padding:0; list-style:none;}
   .feature-list li{font-size:13px; display:flex; gap:8px; align-items:flex-start;}
   .feature-list li::before{content:'✓'; color:var(--status-good); font-weight:700; flex:none;}
+  .feature-list.quotes li::before{content:'“'; color:var(--accent); font-family:var(--font-display); font-size:22px; line-height:0.5; font-weight:700;}
+  .feature-list.quotes li{font-style:italic; color:var(--ink-secondary);}
+  .lang-split{font-size:12.5px; color:var(--ink-secondary); margin-top:2px;}
   .perf-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:14px; margin-bottom:6px;}
   .perf-item{background:var(--surface-alt); border-radius:var(--radius-sm); padding:12px 14px;}
   .perf-item .l{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted);}
@@ -522,8 +525,22 @@ const UI = {
     visResolved:'Resolved to', visContact:'Likely contact', visConfidence:'Confidence', visActivity:'Activity', visStatus:'Status',
     sdrWhatTitle:'What this is',
     sdrWhatBody:'An AI sales development rep working your leads around the clock. It reaches out to identified visitors and unclaimed inbound leads by chat or by natural-sounding voice call, in your brokerage’s voice — qualifying budget, timeline, and boat preferences, answering listing questions accurately, and booking a showing straight onto your calendar. Every message it drafts, and every call script, waits for your approval before anything reaches a buyer.',
-    sdrCap1:'Speaks — chat & voice', sdrCap2:'Works nights, weekends, holidays',
-    sdrCap3:'Qualifies before you spend time', sdrCap4:'Every send approved by you first',
+    sdrCap1:'Trained on your listings, pricing, and past deal files', sdrCap2:'Answers FAQs on the spot',
+    sdrCap3:'Puts the buyer straight through to you when they ask for you', sdrCap4:'Books showings and sea trials on your calendar',
+    sdrCap5:'Speaks the buyer’s language, no interpreter needed', sdrCap6:'Handles the repetitive stuff, spec sheets, availability, follow ups',
+    sdrCap7:'Flags a hot buyer to you the moment they show real intent', sdrCap8:'Never quotes a final price or negotiates, that’s still you',
+    sdrCap9:'Covers nights, weekends, and boat show week',
+    sdrChatTitle:'Sample chatbot conversation', sdrChatSub:'A drafted example showing how a real website visit plays out',
+    sdrOutboundTitle:'Outbound follow ups',
+    chatAnalyticsTitle:'Chatbot analytics', chatAnalyticsSub:'How the website chatbot is performing this period',
+    chatConversations:'Conversations', chatResolved:'Resolved without you', chatAppts:'Showings booked', chatSpecSheets:'Spec sheets sent',
+    chatTopQuestionsTitle:'What buyers ask most', chatByLanguage:'Conversations by language',
+    callAnalyticsTitle:'Call analytics', callAnalyticsSub:'How the AI voice line is performing this period',
+    callsHandled:'Calls answered', callAvgLength:'Avg. call length', callTransferred:'Transferred to you',
+    callAfterHours:'Answered after hours', callMissed:'Missed calls', callTopReasonsTitle:'Most common reasons for calling',
+    langEN:'English', langFR:'French', langES:'Spanish', langIT:'Italian',
+    chatTopQuestions:['Is it still available?','What is the asking price?','Can I see the engine hours?','Do you take trade ins?','When can I come see it?'],
+    callTopReasons:['Confirming the asking price','Availability for a showing','Questions about the survey','Financing questions','Asking for the broker directly'],
     photoTag:'Sample layout · add real photos', galExterior:'Exterior', galSalon:'Salon', galMaster:'Master cabin', galHelm:'Helm',
     specLOA:'LOA', specBeam:'Beam', specDraft:'Draft', specCabins:'Cabins', specHeads:'Heads', specHull:'Hull', specEngines:'Engines', specYear:'Year',
     listedOn:'Listed on', listingPerf:'This listing’s performance',
@@ -585,8 +602,22 @@ UI.fr = {
   visResolved:'Identifié comme', visContact:'Contact probable', visConfidence:'Confiance', visActivity:'Activité', visStatus:'Statut',
   sdrWhatTitle:'Ce que c’est',
   sdrWhatBody:'Un commercial IA qui travaille vos prospects jour et nuit. Il contacte les visiteurs identifiés et les leads entrants non pris en charge, par message ou par appel vocal au son naturel, avec la voix de votre agence — en qualifiant le budget, le délai et les préférences de bateau, en répondant avec précision aux questions sur les annonces, et en réservant une visite directement dans votre agenda. Chaque message rédigé, et chaque script d’appel, attend votre approbation avant d’atteindre un acheteur.',
-  sdrCap1:'Communique — par message et par la voix', sdrCap2:'Travaille nuits, week-ends et jours fériés',
-  sdrCap3:'Qualifie avant que vous n’y passiez du temps', sdrCap4:'Chaque envoi est approuvé par vous au préalable',
+  sdrCap1:'Formé sur vos annonces, vos prix et vos anciens dossiers de vente', sdrCap2:'Répond aux questions fréquentes sur le champ',
+  sdrCap3:'Vous passe l’appel directement dès qu’un acheteur le demande', sdrCap4:'Réserve les visites et essais en mer dans votre agenda',
+  sdrCap5:'Parle la langue de l’acheteur, sans interprète', sdrCap6:'S’occupe des tâches répétitives, fiches techniques, disponibilités, relances',
+  sdrCap7:'Vous signale un acheteur chaud dès qu’il montre un vrai intérêt', sdrCap8:'Ne donne jamais un prix final et ne négocie pas, ça reste vous',
+  sdrCap9:'Couvre les nuits, les week-ends et la semaine du salon nautique',
+  sdrChatTitle:'Exemple de conversation du chatbot', sdrChatSub:'Un exemple rédigé montrant comment se déroule une vraie visite du site',
+  sdrOutboundTitle:'Relances sortantes',
+  chatAnalyticsTitle:'Statistiques du chatbot', chatAnalyticsSub:'Comment se comporte le chatbot du site sur cette période',
+  chatConversations:'Conversations', chatResolved:'Résolu sans vous', chatAppts:'Visites réservées', chatSpecSheets:'Fiches techniques envoyées',
+  chatTopQuestionsTitle:'Ce que les acheteurs demandent le plus', chatByLanguage:'Conversations par langue',
+  callAnalyticsTitle:'Statistiques des appels', callAnalyticsSub:'Comment se comporte la ligne vocale IA sur cette période',
+  callsHandled:'Appels répondus', callAvgLength:'Durée moy. d’appel', callTransferred:'Transférés à vous',
+  callAfterHours:'Répondus hors horaires', callMissed:'Appels manqués', callTopReasonsTitle:'Raisons d’appel les plus fréquentes',
+  langEN:'Anglais', langFR:'Français', langES:'Espagnol', langIT:'Italien',
+  chatTopQuestions:['Est-elle toujours disponible ?','Quel est le prix demandé ?','Puis-je voir les heures moteur ?','Reprenez-vous un bateau ?','Quand puis-je venir la voir ?'],
+  callTopReasons:['Confirmer le prix demandé','Disponibilité pour une visite','Questions sur l’expertise','Questions de financement','Demander à parler au courtier'],
   photoTag:'Mise en page d’exemple · ajoutez de vraies photos', galExterior:'Extérieur', galSalon:'Salon', galMaster:'Cabine principale', galHelm:'Poste de pilotage',
   specLOA:'LHT', specBeam:'Bau', specDraft:'Tirant d’eau', specCabins:'Cabines', specHeads:'Sanitaires', specHull:'Coque', specEngines:'Moteurs', specYear:'Année',
   listedOn:'Diffusé sur', listingPerf:'Performance de cette annonce',
@@ -647,8 +678,22 @@ UI.es = {
   visResolved:'Identificado como', visContact:'Contacto probable', visConfidence:'Confianza', visActivity:'Actividad', visStatus:'Estado',
   sdrWhatTitle:'Qué es esto',
   sdrWhatBody:'Un representante de ventas con IA que trabaja sus leads día y noche. Contacta a los visitantes identificados y a los leads entrantes sin atender, por chat o por llamada de voz de sonido natural, con la voz de su agencia — cualificando presupuesto, plazos y preferencias de embarcación, respondiendo con precisión a preguntas sobre los anuncios, y reservando una visita directamente en su calendario. Cada mensaje que redacta, y cada guion de llamada, espera su aprobación antes de llegar a un comprador.',
-  sdrCap1:'Habla — por chat y por voz', sdrCap2:'Trabaja noches, fines de semana y festivos',
-  sdrCap3:'Cualifica antes de que usted dedique tiempo', sdrCap4:'Cada envío lo aprueba usted primero',
+  sdrCap1:'Entrenado con sus anuncios, precios y expedientes de ventas anteriores', sdrCap2:'Responde preguntas frecuentes al instante',
+  sdrCap3:'Le pasa la llamada directamente en cuanto un comprador lo pide', sdrCap4:'Reserva visitas y pruebas de mar en su agenda',
+  sdrCap5:'Habla el idioma del comprador, sin intérprete', sdrCap6:'Se encarga de lo repetitivo, fichas técnicas, disponibilidad, seguimientos',
+  sdrCap7:'Le avisa de un comprador interesado de verdad en el momento', sdrCap8:'Nunca da un precio final ni negocia, eso sigue siendo cosa suya',
+  sdrCap9:'Cubre noches, fines de semana y la semana del salón náutico',
+  sdrChatTitle:'Ejemplo de conversación del chatbot', sdrChatSub:'Un ejemplo redactado que muestra cómo se desarrolla una visita real al sitio',
+  sdrOutboundTitle:'Seguimientos salientes',
+  chatAnalyticsTitle:'Estadísticas del chatbot', chatAnalyticsSub:'Cómo está rindiendo el chatbot del sitio en este período',
+  chatConversations:'Conversaciones', chatResolved:'Resuelto sin usted', chatAppts:'Visitas reservadas', chatSpecSheets:'Fichas técnicas enviadas',
+  chatTopQuestionsTitle:'Lo que más preguntan los compradores', chatByLanguage:'Conversaciones por idioma',
+  callAnalyticsTitle:'Estadísticas de llamadas', callAnalyticsSub:'Cómo está rindiendo la línea de voz de IA en este período',
+  callsHandled:'Llamadas atendidas', callAvgLength:'Duración media', callTransferred:'Transferidas a usted',
+  callAfterHours:'Atendidas fuera de horario', callMissed:'Llamadas perdidas', callTopReasonsTitle:'Motivos de llamada más frecuentes',
+  langEN:'Inglés', langFR:'Francés', langES:'Español', langIT:'Italiano',
+  chatTopQuestions:['¿Sigue disponible?','¿Cuál es el precio de venta?','¿Puedo ver las horas de motor?','¿Aceptan un barco como parte de pago?','¿Cuándo puedo ir a verla?'],
+  callTopReasons:['Confirmar el precio de venta','Disponibilidad para una visita','Preguntas sobre la inspección','Preguntas de financiación','Pedir hablar con el corredor'],
   photoTag:'Diseño de muestra · añada fotos reales', galExterior:'Exterior', galSalon:'Salón', galMaster:'Camarote principal', galHelm:'Puesto de mando',
   specLOA:'Eslora', specBeam:'Manga', specDraft:'Calado', specCabins:'Camarotes', specHeads:'Baños', specHull:'Casco', specEngines:'Motores', specYear:'Año',
   listedOn:'Publicado en', listingPerf:'Rendimiento de este anuncio',
@@ -709,8 +754,22 @@ UI.it = {
   visResolved:'Identificato come', visContact:'Contatto probabile', visConfidence:'Confidenza', visActivity:'Attività', visStatus:'Stato',
   sdrWhatTitle:'Cosa è questo',
   sdrWhatBody:'Un rappresentante di vendita IA che lavora i tuoi contatti giorno e notte. Contatta i visitatori identificati e i lead in ingresso non gestiti, via chat o con una chiamata vocale dal suono naturale, con la voce della tua agenzia — qualificando budget, tempistiche e preferenze sull’imbarcazione, rispondendo con precisione alle domande sugli annunci, e prenotando una visita direttamente nel tuo calendario. Ogni messaggio che redige, e ogni script di chiamata, attende la tua approvazione prima di raggiungere un acquirente.',
-  sdrCap1:'Parla — via chat e voce', sdrCap2:'Lavora di notte, nei weekend e nei festivi',
-  sdrCap3:'Qualifica prima che tu ci dedichi tempo', sdrCap4:'Ogni invio è approvato prima da te',
+  sdrCap1:'Addestrato sui tuoi annunci, prezzi e pratiche di vendita passate', sdrCap2:'Risponde alle domande frequenti sul momento',
+  sdrCap3:'Ti passa la chiamata subito quando un acquirente lo chiede', sdrCap4:'Prenota visite e prove in mare direttamente sul tuo calendario',
+  sdrCap5:'Parla la lingua dell’acquirente, senza interprete', sdrCap6:'Si occupa delle cose ripetitive, schede tecniche, disponibilità, follow up',
+  sdrCap7:'Ti segnala un acquirente interessato sul serio non appena lo dimostra', sdrCap8:'Non dà mai un prezzo finale e non negozia, quello resta a te',
+  sdrCap9:'Copre notti, weekend e la settimana del salone nautico',
+  sdrChatTitle:'Esempio di conversazione del chatbot', sdrChatSub:'Un esempio scritto che mostra come si svolge una vera visita al sito',
+  sdrOutboundTitle:'Follow up in uscita',
+  chatAnalyticsTitle:'Statistiche del chatbot', chatAnalyticsSub:'Come sta andando il chatbot del sito in questo periodo',
+  chatConversations:'Conversazioni', chatResolved:'Risolto senza di te', chatAppts:'Visite prenotate', chatSpecSheets:'Schede tecniche inviate',
+  chatTopQuestionsTitle:'Cosa chiedono di più gli acquirenti', chatByLanguage:'Conversazioni per lingua',
+  callAnalyticsTitle:'Statistiche delle chiamate', callAnalyticsSub:'Come sta andando la linea vocale IA in questo periodo',
+  callsHandled:'Chiamate risposte', callAvgLength:'Durata media chiamata', callTransferred:'Trasferite a te',
+  callAfterHours:'Risposte fuori orario', callMissed:'Chiamate perse', callTopReasonsTitle:'Motivi di chiamata più frequenti',
+  langEN:'Inglese', langFR:'Francese', langES:'Spagnolo', langIT:'Italiano',
+  chatTopQuestions:['È ancora disponibile?','Qual è il prezzo richiesto?','Posso vedere le ore motore?','Accettate una permuta?','Quando posso venire a vederla?'],
+  callTopReasons:['Confermare il prezzo richiesto','Disponibilità per una visita','Domande sulla perizia','Domande di finanziamento','Chiedere di parlare con il broker'],
   photoTag:'Layout di esempio · aggiungi foto reali', galExterior:'Esterno', galSalon:'Salone', galMaster:'Cabina armatoriale', galHelm:'Plancia di comando',
   specLOA:'LFT', specBeam:'Larghezza', specDraft:'Pescaggio', specCabins:'Cabine', specHeads:'Bagni', specHull:'Scafo', specEngines:'Motori', specYear:'Anno',
   listedOn:'Pubblicato su', listingPerf:'Prestazioni di questo annuncio',
@@ -804,7 +863,22 @@ const TX = {
           draft:'Friday works well — I have 10am or 1pm open, either is fine, I’ll confirm the captain once you pick a time.'},
         a3:{time:'3 days ago', m:['Hi Mr. Osei — saw you were comparing the Riva 76 against a couple of similar listings. Want a side-by-side spec sheet sent over?','No thanks, went a different direction. Please remove me from follow-ups.']}
       }
-    }
+    },
+    sdrChat:{visitor:'D. Ferreira', messages:[
+      {from:'bot', text:'Hi, thanks for stopping by Meridian Yacht Sales. I’m the virtual assistant here. Are you looking into a specific yacht today?'},
+      {from:'visitor', text:'yeah the sunseeker 74'},
+      {from:'bot', text:'Great choice. The Sunseeker 74 “Isla Mar” is a 2019 model, 74 feet, listed at $2,150,000. She’s a single owner boat with full service records and a hydraulic swim platform. Want the full spec sheet?'},
+      {from:'visitor', text:'yes please, and is she still available?'},
+      {from:'bot', text:'Still available, no offers on her right now. I’ll send the spec sheet over. Can I grab your email?'},
+      {from:'visitor', text:'d.ferreira@email.com'},
+      {from:'bot', text:'Sent. Anything else I can help with, financing, trade ins, or would you like to see her in person?'},
+      {from:'visitor', text:'can i talk to someone about financing'},
+      {from:'bot', text:'Of course. I’ll connect you with Sovon, the listing broker, right away. He’ll call you within the hour. Want me to book a showing this week too while I have you?'},
+      {from:'visitor', text:'yes, thursday afternoon works'},
+      {from:'bot', text:'Thursday afternoon it is. I’ve got 2 PM open at the marina. I’ll confirm with Sovon and send a calendar invite. Anything else before I let you go?'},
+      {from:'visitor', text:'no that’s it, thanks'},
+      {from:'bot', text:'You’re welcome. Sovon will be in touch shortly, and I’ll text you a reminder before Thursday.'}
+    ]}
   }
 };
 TX.fr = {
@@ -876,7 +950,22 @@ TX.fr = {
         draft:'Vendredi convient bien — j’ai 10h ou 13h de libre, les deux me vont, je confirme avec le capitaine une fois votre choix fait.'},
       a3:{time:'il y a 3 jours', m:['Bonjour M. Osei — j’ai vu que vous compariez le Riva 76 avec quelques annonces similaires. Souhaitez-vous une fiche comparative ?','Non merci, nous avons choisi une autre direction. Merci de me retirer des relances.']}
     }
-  }
+  },
+  sdrChat:{visitor:'D. Ferreira', messages:[
+    {from:'bot', text:'Bonjour, merci de votre visite chez Meridian Yacht Sales. Je suis l’assistant virtuel ici. Vous vous intéressez à un bateau en particulier aujourd’hui ?'},
+    {from:'visitor', text:'oui le sunseeker 74'},
+    {from:'bot', text:'Excellent choix. Le Sunseeker 74 « Isla Mar » est un modèle 2019, 74 pieds, affiché à 2 150 000 $. Propriétaire unique, historique d’entretien complet et plateforme de bain hydraulique. Vous voulez la fiche technique complète ?'},
+    {from:'visitor', text:'oui merci, et elle est toujours disponible ?'},
+    {from:'bot', text:'Toujours disponible, aucune offre en cours dessus. J’envoie la fiche technique. Je peux avoir votre e-mail ?'},
+    {from:'visitor', text:'d.ferreira@email.com'},
+    {from:'bot', text:'Envoyé. Autre chose, financement, reprise, ou vous voulez la voir en personne ?'},
+    {from:'visitor', text:'je peux parler à quelqu’un pour le financement'},
+    {from:'bot', text:'Bien sûr. Je vous mets en contact avec Sovon, le courtier en charge, tout de suite. Il vous appelle dans l’heure. Je vous réserve aussi une visite cette semaine pendant que je vous ai ?'},
+    {from:'visitor', text:'oui, jeudi après-midi ça marche'},
+    {from:'bot', text:'Jeudi après-midi, c’est noté. J’ai 14h de libre au port. Je confirme avec Sovon et je vous envoie une invitation. Autre chose avant de vous laisser ?'},
+    {from:'visitor', text:'non c’est tout, merci'},
+    {from:'bot', text:'Avec plaisir. Sovon vous contacte très vite, et je vous envoie un rappel par SMS avant jeudi.'}
+  ]}
 };
 TX.es = {
   listings:{
@@ -947,7 +1036,22 @@ TX.es = {
         draft:'El viernes va bien — tengo las 10:00 o las 13:00 libres, cualquiera está bien, confirmaré con el capitán en cuanto elija la hora.'},
       a3:{time:'hace 3 días', m:['Hola, Sr. Osei — vi que estaba comparando el Riva 76 con un par de anuncios similares. ¿Le envío una ficha comparativa?','No, gracias, decidimos otra opción. Por favor, retíreme de los seguimientos.']}
     }
-  }
+  },
+  sdrChat:{visitor:'D. Ferreira', messages:[
+    {from:'bot', text:'Hola, gracias por visitar Meridian Yacht Sales. Soy el asistente virtual aquí. ¿Le interesa algún barco en concreto hoy?'},
+    {from:'visitor', text:'si el sunseeker 74'},
+    {from:'bot', text:'Buena elección. El Sunseeker 74 “Isla Mar” es un modelo de 2019, 74 pies, publicado en 2.150.000 $. Único propietario, historial de mantenimiento completo y plataforma de baño hidráulica. ¿Quiere la ficha técnica completa?'},
+    {from:'visitor', text:'si por favor, y sigue disponible?'},
+    {from:'bot', text:'Sigue disponible, sin ofertas en curso. Le envío la ficha técnica ahora. ¿Me da su correo?'},
+    {from:'visitor', text:'d.ferreira@email.com'},
+    {from:'bot', text:'Enviada. ¿Algo más, financiación, parte de pago, o le gustaría verla en persona?'},
+    {from:'visitor', text:'puedo hablar con alguien de financiacion'},
+    {from:'bot', text:'Claro. Le pongo en contacto con Sovon, el corredor a cargo, ahora mismo. Le llamará dentro de una hora. ¿Le reservo también una visita esta semana ya que estamos?'},
+    {from:'visitor', text:'si, el jueves por la tarde me viene bien'},
+    {from:'bot', text:'Jueves por la tarde, anotado. Tengo las 14:00 libres en el puerto. Confirmo con Sovon y le mando una invitación de calendario. ¿Algo más antes de despedirme?'},
+    {from:'visitor', text:'no, eso es todo, gracias'},
+    {from:'bot', text:'Un placer. Sovon se pondrá en contacto pronto, y le mandaré un recordatorio por mensaje antes del jueves.'}
+  ]}
 };
 TX.it = {
   listings:{
@@ -1018,11 +1122,27 @@ TX.it = {
         draft:'Venerdì va bene — ho le 10 o le 13 libere, entrambe vanno bene, confermerò con il capitano non appena scegli un orario.'},
       a3:{time:'3 giorni fa', m:['Buongiorno Sig. Osei — ho visto che stava confrontando il Riva 76 con un paio di annunci simili. Vuole che le invii una scheda comparativa?','No grazie, abbiamo scelto un’altra direzione. La prego di rimuovermi dai follow-up.']}
     }
-  }
+  },
+  sdrChat:{visitor:'D. Ferreira', messages:[
+    {from:'bot', text:'Ciao, grazie per essere passato da Meridian Yacht Sales. Sono l’assistente virtuale qui. Ti interessa una barca in particolare oggi?'},
+    {from:'visitor', text:'si il sunseeker 74'},
+    {from:'bot', text:'Ottima scelta. Il Sunseeker 74 “Isla Mar” è un modello del 2019, 74 piedi, in vendita a 2.150.000 $. Unico proprietario, documentazione di manutenzione completa e piattaforma di poppa idraulica. Vuoi la scheda tecnica completa?'},
+    {from:'visitor', text:'si grazie, ed è ancora disponibile?'},
+    {from:'bot', text:'Ancora disponibile, nessuna offerta in corso. Ti mando subito la scheda tecnica. Mi lasci la tua email?'},
+    {from:'visitor', text:'d.ferreira@email.com'},
+    {from:'bot', text:'Inviata. Altro, finanziamento, permuta, o vuoi vederla di persona?'},
+    {from:'visitor', text:'posso parlare con qualcuno per il finanziamento'},
+    {from:'bot', text:'Certo. Ti metto in contatto con Sovon, il broker responsabile, subito. Ti chiamerà entro un’ora. Ti prenoto anche una visita questa settimana già che ci siamo?'},
+    {from:'visitor', text:'si, giovedì pomeriggio va bene'},
+    {from:'bot', text:'Giovedì pomeriggio, segnato. Ho le 14 libere in banchina. Confermo con Sovon e ti mando un invito sul calendario. Altro prima di salutarci?'},
+    {from:'visitor', text:'no è tutto, grazie'},
+    {from:'bot', text:'Di niente. Sovon ti contatterà a breve, e ti mando un promemoria via messaggio prima di giovedì.'}
+  ]}
 };
 function listingTX(id){ const d = TX[state.lang] && TX[state.lang].listings && TX[state.lang].listings[id]; return d || TX.en.listings[id]; }
 function threadTX(channelId, threadId){ const d = TX[state.lang] && TX[state.lang].threads[channelId] && TX[state.lang].threads[channelId][threadId]; return d || (TX.en.threads[channelId] && TX.en.threads[channelId][threadId]) || {m:[]}; }
 function visitorTX(i){ const arr = TX[state.lang] && TX[state.lang].visitors; return (arr && arr[i]) || TX.en.visitors[i]; }
+function sdrChatTX(){ return (TX[state.lang] && TX[state.lang].sdrChat) || TX.en.sdrChat; }
 
 /* ============================= STATE ============================= */
 function loadLang(){ try{ const v = localStorage.getItem('binnacle_lang'); return (v && UI[v]!==undefined) ? v : 'en'; }catch(e){ return 'en'; } }
@@ -1277,21 +1397,84 @@ function channelViewHTML(channelId){
     </div>`;
   }
   const threads = THREADS[channelId] || [];
-  const intro = ch.id==='ai_sdr' ? `
-      <div class="channel-intro">
-        <h3>${t('sdrWhatTitle')}</h3>
-        <p>${t('sdrWhatBody')}</p>
-        <ul class="capability-list">
-          <li>${t('sdrCap1')}</li><li>${t('sdrCap2')}</li><li>${t('sdrCap3')}</li><li>${t('sdrCap4')}</li>
-        </ul>
-      </div>` : '';
+  if(ch.id==='ai_sdr'){ return aiSdrPageHTML(ch, threads); }
   return `
   <button class="back-btn" data-back="dashboard">&larr; ${t('backToDashboard')}</button>
   <div class="panel">
     <div class="panel-head"><div><div class="panel-title">${channelName(ch.id)}</div><div class="panel-sub">${threads.length} ${t('conversationsPeriod')}</div></div></div>
-    ${intro}
     ${threads.map(th=>{
       const tx = threadTX(channelId, th.id);
+      return `
+      <div class="thread-list-item" data-thread="${th.id}">
+        <div>
+          <div class="tli-buyer">${buyerLabel(th)}</div>
+          <div class="tli-meta">${th.listing} &middot; ${tx.time||''}</div>
+          <div class="tli-preview">${threadPreview(th, tx)}</div>
+        </div>
+        <span class="status-pill ${th.pendingFirstTouch ? 'pending' : th.status}">${th.pendingFirstTouch ? t('statusDraftPending') : statusLabel(th.status)}</span>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function aiSdrPageHTML(ch, threads){
+  const chat = sdrChatTX();
+  const chatLangLine = `${t('langEN')} 64% · ${t('langES')} 17% · ${t('langFR')} 11% · ${t('langIT')} 8%`;
+  const callLangLine = `${t('langEN')} 58% · ${t('langIT')} 19% · ${t('langFR')} 14% · ${t('langES')} 9%`;
+  return `
+  <button class="back-btn" data-back="dashboard">&larr; ${t('backToDashboard')}</button>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${channelName(ch.id)}</div></div></div>
+    <div class="channel-intro">
+      <h3>${t('sdrWhatTitle')}</h3>
+      <p>${t('sdrWhatBody')}</p>
+      <ul class="capability-list">
+        <li>${t('sdrCap1')}</li><li>${t('sdrCap2')}</li><li>${t('sdrCap3')}</li><li>${t('sdrCap4')}</li>
+        <li>${t('sdrCap5')}</li><li>${t('sdrCap6')}</li><li>${t('sdrCap7')}</li><li>${t('sdrCap8')}</li><li>${t('sdrCap9')}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('chatAnalyticsTitle')}</div><div class="panel-sub">${t('chatAnalyticsSub')}</div></div></div>
+    <div class="perf-row">
+      <div class="perf-item"><div class="l">${t('chatConversations')}</div><div class="v">${scale(96)}</div></div>
+      <div class="perf-item"><div class="l">${t('chatResolved')}</div><div class="v">71%</div></div>
+      <div class="perf-item"><div class="l">${t('chatAppts')}</div><div class="v">${scale(14)}</div></div>
+      <div class="perf-item"><div class="l">${t('chatSpecSheets')}</div><div class="v">${scale(38)}</div></div>
+    </div>
+    <div class="panel-foot-stat"><span>${t('chatByLanguage')}</span><span class="lang-split">${chatLangLine}</span></div>
+    <div class="panel-head" style="margin-top:18px"><div class="panel-title" style="font-size:13px">${t('chatTopQuestionsTitle')}</div></div>
+    <ul class="feature-list quotes">${t('chatTopQuestions').map(q=>`<li>${q}</li>`).join('')}</ul>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('sdrChatTitle')}</div><div class="panel-sub">${t('sdrChatSub')}</div></div></div>
+    <div class="msg-log">
+      ${chat.messages.map(m=>`<div class="msg ${m.from==='visitor'?'buyer':'broker'}">${m.text}</div>`).join('')}
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('callAnalyticsTitle')}</div><div class="panel-sub">${t('callAnalyticsSub')}</div></div></div>
+    <div class="perf-row">
+      <div class="perf-item"><div class="l">${t('callsHandled')}</div><div class="v">${scale(58)}</div></div>
+      <div class="perf-item"><div class="l">${t('callAvgLength')}</div><div class="v">3:40</div></div>
+      <div class="perf-item"><div class="l">${t('callTransferred')}</div><div class="v">22%</div></div>
+      <div class="perf-item"><div class="l">${t('chatAppts')}</div><div class="v">${scale(9)}</div></div>
+      <div class="perf-item"><div class="l">${t('callAfterHours')}</div><div class="v">34%</div></div>
+      <div class="perf-item"><div class="l">${t('callMissed')}</div><div class="v" style="color:var(--status-good)">0</div></div>
+    </div>
+    <div class="panel-foot-stat"><span>${t('chatByLanguage')}</span><span class="lang-split">${callLangLine}</span></div>
+    <div class="panel-head" style="margin-top:18px"><div class="panel-title" style="font-size:13px">${t('callTopReasonsTitle')}</div></div>
+    <ul class="feature-list quotes">${t('callTopReasons').map(q=>`<li>${q}</li>`).join('')}</ul>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('sdrOutboundTitle')}</div><div class="panel-sub">${threads.length} ${t('conversationsPeriod')}</div></div></div>
+    ${threads.map(th=>{
+      const tx = threadTX(ch.id, th.id);
       return `
       <div class="thread-list-item" data-thread="${th.id}">
         <div>
