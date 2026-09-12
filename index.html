@@ -98,6 +98,27 @@
   .cta-btn svg{width:15px; height:15px; flex:none;}
   .cta-foot{display:flex; justify-content:center; margin:8px 0 18px;}
   .cta-btn-lg{font-size:14px; padding:11px 22px;}
+  .nav-btn{
+    display:inline-flex; align-items:center; gap:7px; background:var(--surface); color:var(--ink-secondary);
+    border:1px solid var(--border-strong); font-size:13px; font-weight:600; padding:8px 15px; border-radius:999px; white-space:nowrap;
+  }
+  .nav-btn:hover{color:var(--ink); border-color:var(--ink-muted);}
+  .nav-btn svg{width:15px; height:15px; flex:none;}
+
+  /* trust row */
+  .trust-row{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:14px 0 4px;}
+  .trust-badge{display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; color:var(--ink-muted); border:1px solid var(--border); border-radius:999px; padding:5px 12px;}
+  .trust-badge svg{width:13px; height:13px; flex:none;}
+
+  /* analytics charts */
+  .northstar-value{font-family:var(--font-mono); font-size:clamp(32px,5vw,44px); font-weight:600; letter-spacing:-.01em;}
+  .northstar-badge{display:inline-flex; align-items:center; gap:5px; font-size:13px; font-weight:700; color:var(--status-good); background:var(--status-good-soft); border-radius:999px; padding:4px 12px; margin-left:10px;}
+  .trend-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:6px;}
+  .trend-card .trend-label{font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); font-weight:600;}
+  .trend-card .trend-value{font-family:var(--font-mono); font-size:20px; font-weight:600; margin:3px 0 8px;}
+  .chart-legend{display:flex; gap:16px; margin-bottom:10px; font-size:12px; color:var(--ink-secondary);}
+  .chart-legend span{display:inline-flex; align-items:center; gap:6px;}
+  .chart-legend .sw{width:9px; height:9px; border-radius:2px; display:inline-block;}
   .status-line{position:relative; margin-top:16px; font-size:14px; color:var(--ink-secondary); display:flex; align-items:center; gap:8px;}
   .status-dot{width:7px; height:7px; border-radius:50%; background:var(--status-good); flex:none;}
 
@@ -301,10 +322,16 @@
         </div>
       </div>
       <div class="topbar-right">
-        <a class="cta-btn" id="ctaTop" href="https://aimamoth-zohomail.zohobookings.in/#/meetSovon" target="_blank" rel="noopener">
-          <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4.5" width="14" height="12" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span id="ctaTopText">Book a call</span>
-        </a>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+          <button class="nav-btn" id="analyticsNavBtn">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 16V9M10 16V4M16 16v-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <span id="analyticsNavText">Analytics</span>
+          </button>
+          <a class="cta-btn" id="ctaTop" href="https://aimamoth-zohomail.zohobookings.in/#/meetSovon" target="_blank" rel="noopener">
+            <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4.5" width="14" height="12" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span id="ctaTopText">Book a call</span>
+          </a>
+        </div>
         <div class="lang-group pill-group" role="tablist" id="langGroup">
           <button class="pill-btn" data-lang="en">EN</button>
           <button class="pill-btn" data-lang="fr">FR</button>
@@ -333,6 +360,11 @@
       <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4.5" width="14" height="12" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       <span id="ctaBottomText">Book a call</span>
     </a>
+  </div>
+
+  <div class="trust-row">
+    <span class="trust-badge"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5 16.5 5v4.2c0 4.1-2.7 7.4-6.5 8.3-3.8-.9-6.5-4.2-6.5-8.3V5L10 2.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span id="trustGdprText">GDPR compliant</span></span>
+    <span class="trust-badge"><svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5 16.5 5v4.2c0 4.1-2.7 7.4-6.5 8.3-3.8-.9-6.5-4.2-6.5-8.3V5L10 2.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span id="trustSocText">SOC 2 compatible</span></span>
   </div>
 
   <footer id="footerNote">
@@ -463,6 +495,28 @@ const DEALS = [
   {stage:'Under contract', count:2, chips:['M. Sørensen — Windfall','S. Whitfield — Dolce Vita II']}
 ];
 
+/* ============================= ANALYTICS DATA (illustrative, 6-month trend) ============================= */
+const TREND_MONTHS_END = new Date(2026, 8, 1); // September 2026
+const TREND = {
+  commission:[62000, 78000, 95000, 118000, 145000, 184000],
+  inquiries:[71, 78, 85, 94, 102, 118],
+  responseMin:[22, 14, 9, 6, 4, 3],
+  conversionPct:[4.5, 5.2, 5.8, 6.6, 7.1, 7.6]
+};
+function trendMonthLabels(){
+  const out = [];
+  for(let i=5;i>=0;i--){
+    const d = new Date(TREND_MONTHS_END.getFullYear(), TREND_MONTHS_END.getMonth()-i, 1);
+    out.push(d.toLocaleDateString(LOCALE_MAP[state.lang]||'en-US', {month:'short'}));
+  }
+  return out;
+}
+const STAGE_COMPARE = {
+  categories:['Inquiry','Qualified','Showing','Offer','Sold'],
+  lastMonth:[102, 62, 26, 6, 0],
+  thisMonth:[118, 76, 34, 9, 1]
+};
+
 const STAGE_KEY = {'Inquiry':'stageInquiry','Qualified':'stageQualified','Showing':'stageShowing','Showing scheduled':'stageShowingScheduled','Offer':'stageOffer','Offer out':'stageOfferOut','Under contract':'stageUnderContract','Sold':'stageSold'};
 const CHANNEL_KEY = {whatsapp:'chWhatsapp', sms:'chSms', call:'chCall', website:'chWebsite', instagram:'chInstagram', email:'chEmail', deanon:'chDeanon', ai_sdr:'chAiSdr'};
 const STATUS_KEY = {closed:'statusClosed', still_interested:'statusStillInterested', churned:'statusChurned'};
@@ -556,7 +610,16 @@ const UI = {
     chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Call', chWebsite:'Website inquiry', chInstagram:'Instagram',
     chEmail:'Email inquiry', chDeanon:'Website Visitor Deanonymization', chAiSdr:'AI SDR',
     countLabelInquiries:'inquiries', countLabelInterestedOutreached:'interested / outreached',
-    bookCall:'Book a call'
+    bookCall:'Book a call',
+    analyticsNavLabel:'Analytics', trustGdpr:'GDPR compliant', trustSoc:'SOC 2 compatible',
+    northStarLabel:'Your north star: commission protected', northStarSub:'The dollar value this system has protected for you, month by month',
+    overMonths:'over the last 6 months',
+    metricsOverTimeTitle:'Key metrics over time', metricsOverTimeSub:'The last 6 months, month by month',
+    inquiriesTrendLabel:'Inquiries', responseTrendLabel:'Avg. response time', conversionTrendLabel:'Inquiry to close rate',
+    comparisonTitle:'This month vs last month', comparisonSub:'Where buyers are in the pipeline right now, compared to a month ago',
+    legendLastMonth:'Last month', legendThisMonth:'This month',
+    engagementTitle:'Engagement by channel', engagementSub:'Which channels are actually generating activity',
+    topListingsTitle:'Top performing listings', topListingsSub:'Ranked by inquiries this period, colored by where each deal stands'
   }
 };
 UI.fr = {
@@ -633,7 +696,16 @@ UI.fr = {
   chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Appel', chWebsite:'Demande site web', chInstagram:'Instagram',
   chEmail:'Demande par e-mail', chDeanon:'Désanonymisation des visiteurs du site', chAiSdr:'SDR IA',
   countLabelInquiries:'demandes', countLabelInterestedOutreached:'intéressés / contactés',
-  bookCall:'Réserver un appel'
+  bookCall:'Réserver un appel',
+  analyticsNavLabel:'Statistiques', trustGdpr:'Conforme RGPD', trustSoc:'Compatible SOC 2',
+  northStarLabel:'Votre indicateur clé : commission protégée', northStarSub:'La valeur en dollars que ce système vous a protégée, mois par mois',
+  overMonths:'sur les 6 derniers mois',
+  metricsOverTimeTitle:'Indicateurs clés dans le temps', metricsOverTimeSub:'Les 6 derniers mois, mois par mois',
+  inquiriesTrendLabel:'Demandes', responseTrendLabel:'Temps de réponse moy.', conversionTrendLabel:'Taux demande → vente',
+  comparisonTitle:'Ce mois-ci vs le mois dernier', comparisonSub:'Où en sont les acheteurs dans le pipeline, comparé au mois dernier',
+  legendLastMonth:'Mois dernier', legendThisMonth:'Ce mois-ci',
+  engagementTitle:'Engagement par canal', engagementSub:'Quels canaux génèrent réellement de l’activité',
+  topListingsTitle:'Annonces les plus performantes', topListingsSub:'Classées par demandes sur cette période, colorées selon l’état de chaque dossier'
 };
 UI.es = {
   brandTagline:'Fort Lauderdale, FL · Plan Corredor Principal', sampleTag:'Datos de muestra · ilustrativos',
@@ -709,7 +781,16 @@ UI.es = {
   chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Llamada', chWebsite:'Consulta del sitio web', chInstagram:'Instagram',
   chEmail:'Consulta por correo electrónico', chDeanon:'Desanonimización de visitantes del sitio', chAiSdr:'SDR de IA',
   countLabelInquiries:'consultas', countLabelInterestedOutreached:'interesados / contactados',
-  bookCall:'Reservar una llamada'
+  bookCall:'Reservar una llamada',
+  analyticsNavLabel:'Estadísticas', trustGdpr:'Conforme al RGPD', trustSoc:'Compatible con SOC 2',
+  northStarLabel:'Su métrica estrella: comisión protegida', northStarSub:'El valor en dólares que este sistema le ha protegido, mes a mes',
+  overMonths:'en los últimos 6 meses',
+  metricsOverTimeTitle:'Métricas clave en el tiempo', metricsOverTimeSub:'Los últimos 6 meses, mes a mes',
+  inquiriesTrendLabel:'Consultas', responseTrendLabel:'Tiempo de respuesta medio', conversionTrendLabel:'Tasa consulta a venta',
+  comparisonTitle:'Este mes frente al mes pasado', comparisonSub:'En qué punto del pipeline están los compradores ahora, comparado con hace un mes',
+  legendLastMonth:'Mes pasado', legendThisMonth:'Este mes',
+  engagementTitle:'Interacción por canal', engagementSub:'Qué canales generan realmente actividad',
+  topListingsTitle:'Anuncios con mejor rendimiento', topListingsSub:'Ordenados por consultas en este período, coloreados según el estado de cada operación'
 };
 UI.it = {
   brandTagline:'Fort Lauderdale, FL · Piano Broker Responsabile', sampleTag:'Dati di esempio · a scopo illustrativo',
@@ -785,7 +866,16 @@ UI.it = {
   chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Chiamata', chWebsite:'Richiesta dal sito web', chInstagram:'Instagram',
   chEmail:'Richiesta via email', chDeanon:'Deanonimizzazione visitatori del sito', chAiSdr:'SDR IA',
   countLabelInquiries:'richieste', countLabelInterestedOutreached:'interessati / contattati',
-  bookCall:'Prenota una chiamata'
+  bookCall:'Prenota una chiamata',
+  analyticsNavLabel:'Statistiche', trustGdpr:'Conforme al GDPR', trustSoc:'Compatibile con SOC 2',
+  northStarLabel:'La tua metrica guida: commissione protetta', northStarSub:'Il valore in dollari che questo sistema ti ha protetto, mese per mese',
+  overMonths:'negli ultimi 6 mesi',
+  metricsOverTimeTitle:'Metriche chiave nel tempo', metricsOverTimeSub:'Gli ultimi 6 mesi, mese per mese',
+  inquiriesTrendLabel:'Richieste', responseTrendLabel:'Tempo di risposta medio', conversionTrendLabel:'Tasso richiesta-vendita',
+  comparisonTitle:'Questo mese rispetto al mese scorso', comparisonSub:'A che punto sono gli acquirenti nella pipeline ora, rispetto a un mese fa',
+  legendLastMonth:'Mese scorso', legendThisMonth:'Questo mese',
+  engagementTitle:'Coinvolgimento per canale', engagementSub:'Quali canali generano davvero attività',
+  topListingsTitle:'Annunci con le migliori prestazioni', topListingsSub:'Classificati per richieste in questo periodo, colorati in base allo stato di ogni trattativa'
 };
 function t(key){ const d = UI[state.lang]; return (d && d[key]!=null) ? d[key] : (UI.en[key]!=null ? UI.en[key] : key); }
 function stageLabel(stage){ return t(STAGE_KEY[stage]) || stage; }
@@ -1171,6 +1261,9 @@ function applyChrome(){
   document.getElementById('footerNote').innerHTML = t('footerNote');
   document.getElementById('ctaTopText').textContent = t('bookCall');
   document.getElementById('ctaBottomText').textContent = t('bookCall');
+  document.getElementById('analyticsNavText').textContent = t('analyticsNavLabel');
+  document.getElementById('trustGdprText').textContent = t('trustGdpr');
+  document.getElementById('trustSocText').textContent = t('trustSoc');
   document.getElementById('langGroup').setAttribute('aria-label', t('languageAria'));
   document.getElementById('rangeGroup').setAttribute('aria-label', t('dateRangeAria'));
   document.getElementById('refreshBtn').setAttribute('aria-label', t('refreshAria'));
@@ -1201,6 +1294,7 @@ function renderApp(){
   else if(state.view==='channel'){ app.innerHTML = channelViewHTML(state.channelId); bindChannelView(); }
   else if(state.view==='thread'){ app.innerHTML = threadViewHTML(state.channelId, state.threadId); bindThreadView(); }
   else if(state.view==='listing'){ app.innerHTML = listingViewHTML(state.listingId); bindListingView(); }
+  else if(state.view==='analytics'){ app.innerHTML = analyticsPageHTML(); bindListingView(); }
 }
 function navigate(fn){ fn(); window.scrollTo({top:0}); renderApp(); }
 
@@ -1361,6 +1455,68 @@ function channelPanelHTML(){
 }
 
 function iconSvg(name){return `<svg width="17" height="17" viewBox="0 0 28 28" fill="none">${ICONS[name]}</svg>`;}
+
+/* ============================= CHART HELPERS (inline SVG, theme-token colored) ============================= */
+function trendChartSVG(values, opts){
+  const o = Object.assign({w:520, h:100, color:'var(--accent)', fill:true, labels:[], fmt:(v)=>v}, opts||{});
+  const max = Math.max(...values) * 1.15, min = Math.min(0, Math.min(...values) * 0.9);
+  const span = (max-min) || 1;
+  const stepX = o.w/(values.length-1 || 1);
+  const y = v => o.h - ((v-min)/span)*o.h;
+  const pts = values.map((v,i)=>[i*stepX, y(v)]);
+  const path = pts.map((p,i)=>(i===0?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const areaPath = `${path} L${o.w},${o.h} L0,${o.h} Z`;
+  const last = pts[pts.length-1];
+  const labelsRow = o.labels.length ? `<div style="display:flex; justify-content:space-between; margin-top:4px;">${o.labels.map(l=>`<span style="font-size:10.5px; color:var(--ink-muted)">${l}</span>`).join('')}</div>` : '';
+  return `<div>
+    <svg viewBox="0 0 ${o.w} ${o.h+14}" width="100%" style="overflow:visible; display:block;">
+      ${o.fill?`<path d="${areaPath}" fill="${o.color}" opacity=".12"/>`:''}
+      <path d="${path}" fill="none" stroke="${o.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${last[0]}" cy="${last[1]}" r="4" fill="${o.color}" stroke="var(--surface)" stroke-width="2"/>
+    </svg>
+    ${labelsRow}
+  </div>`;
+}
+
+function hBarChartSVG(items, opts){
+  const o = Object.assign({w:600, barH:22, gap:14, labelW:150}, opts||{});
+  const max = Math.max(...items.map(i=>i.value)) * 1.08 || 1;
+  const h = items.length*(o.barH+o.gap) - o.gap;
+  const chartW = o.w-o.labelW-46;
+  const rows = items.map((it,i)=>{
+    const yy = i*(o.barH+o.gap);
+    const bw = Math.max((it.value/max)*chartW, 3);
+    return `
+      <text x="0" y="${yy+o.barH*0.68}" font-size="12.5" fill="var(--ink-secondary)">${it.label}</text>
+      <rect x="${o.labelW}" y="${yy}" width="${chartW}" height="${o.barH}" rx="5" fill="var(--surface-alt)"/>
+      <rect x="${o.labelW}" y="${yy}" width="${bw}" height="${o.barH}" rx="5" fill="${it.color}"/>
+      <text x="${o.labelW+bw+8}" y="${yy+o.barH*0.68}" font-size="12" font-family="var(--font-mono)" fill="var(--ink)">${it.value}</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${o.w} ${h}" width="100%">${rows}</svg>`;
+}
+
+function groupedBarSVG(categories, seriesPrev, seriesCurr, opts){
+  const o = Object.assign({w:600, h:180}, opts||{});
+  const max = Math.max(...seriesCurr, ...seriesPrev) * 1.2 || 1;
+  const groupW = o.w/categories.length;
+  const barW = Math.min(groupW*0.26, 30);
+  const baseline = o.h-22;
+  const bars = categories.map((cat,i)=>{
+    const cx = i*groupW + groupW/2;
+    const hPrev = (seriesPrev[i]/max)*(baseline-14);
+    const hCurr = (seriesCurr[i]/max)*(baseline-14);
+    return `
+      <rect x="${(cx-barW-4).toFixed(1)}" y="${(baseline-hPrev).toFixed(1)}" width="${barW}" height="${hPrev.toFixed(1)}" rx="3" fill="var(--ink-muted)" opacity=".55"/>
+      <rect x="${(cx+4).toFixed(1)}" y="${(baseline-hCurr).toFixed(1)}" width="${barW}" height="${hCurr.toFixed(1)}" rx="3" fill="var(--accent)"/>
+      <text x="${(cx-barW-4+barW/2).toFixed(1)}" y="${(baseline-hPrev-6).toFixed(1)}" font-size="10" font-family="var(--font-mono)" fill="var(--ink-muted)" text-anchor="middle">${seriesPrev[i]}</text>
+      <text x="${(cx+4+barW/2).toFixed(1)}" y="${(baseline-hCurr-6).toFixed(1)}" font-size="10.5" font-weight="700" font-family="var(--font-mono)" fill="var(--ink)" text-anchor="middle">${seriesCurr[i]}</text>
+      <text x="${cx.toFixed(1)}" y="${baseline+16}" font-size="11.5" fill="var(--ink-secondary)" text-anchor="middle">${cat}</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${o.w} ${o.h}" width="100%">
+    <line x1="0" y1="${baseline}" x2="${o.w}" y2="${baseline}" stroke="var(--border-strong)" stroke-width="1"/>
+    ${bars}
+  </svg>`;
+}
 
 function buyerLabel(t_){ return t_.buyer + (t_.buyerTag ? ' ' + t(t_.buyerTag) : ''); }
 
@@ -1608,6 +1764,66 @@ function listingViewHTML(listingId){
   </div>`;
 }
 
+function analyticsPageHTML(){
+  const months = trendMonthLabels();
+  const growthPct = Math.round(((TREND.commission[5]-TREND.commission[0])/TREND.commission[0])*100);
+  const channelItems = CHANNELS.map(ch=>({label:channelName(ch.id), value:scale(ch.base.count), color: ch.color || '#C13584'}))
+    .sort((a,b)=>b.value-a.value);
+  const listingItems = [...LISTINGS].sort((a,b)=>b.inquiries-a.inquiries).map(l=>({label:l.name.split(' — ')[0], value:l.inquiries, color:stageMeta(l.stage).c}));
+  return `
+  <button class="back-btn" data-back="dashboard">&larr; ${t('backToDashboard')}</button>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('northStarLabel')}</div><div class="panel-sub">${t('northStarSub')}</div></div></div>
+    <div style="display:flex; align-items:baseline; flex-wrap:wrap; margin-bottom:10px;">
+      <span class="northstar-value">$${TREND.commission[5].toLocaleString('en-US')}</span>
+      <span class="northstar-badge">&#8593; +${growthPct}%</span>
+      <span style="font-size:12.5px; color:var(--ink-muted); margin-left:8px;">${t('overMonths')}</span>
+    </div>
+    ${trendChartSVG(TREND.commission, {h:110, labels:months, fmt:v=>'$'+Math.round(v/1000)+'k'})}
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('metricsOverTimeTitle')}</div><div class="panel-sub">${t('metricsOverTimeSub')}</div></div></div>
+    <div class="trend-grid">
+      <div class="trend-card">
+        <div class="trend-label">${t('inquiriesTrendLabel')}</div>
+        <div class="trend-value">${TREND.inquiries[5]}</div>
+        ${trendChartSVG(TREND.inquiries, {h:70, w:260, color:'var(--accent)', labels:[months[0],months[5]]})}
+      </div>
+      <div class="trend-card">
+        <div class="trend-label">${t('responseTrendLabel')}</div>
+        <div class="trend-value">${TREND.responseMin[5]} ${t('unitMin')}</div>
+        ${trendChartSVG(TREND.responseMin, {h:70, w:260, color:'var(--status-info)', labels:[months[0],months[5]]})}
+      </div>
+      <div class="trend-card">
+        <div class="trend-label">${t('conversionTrendLabel')}</div>
+        <div class="trend-value">${TREND.conversionPct[5]}%</div>
+        ${trendChartSVG(TREND.conversionPct, {h:70, w:260, color:'var(--status-good)', labels:[months[0],months[5]]})}
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('comparisonTitle')}</div><div class="panel-sub">${t('comparisonSub')}</div></div></div>
+    <div class="chart-legend">
+      <span><i class="sw" style="background:var(--ink-muted); opacity:.55"></i>${t('legendLastMonth')}</span>
+      <span><i class="sw" style="background:var(--accent)"></i>${t('legendThisMonth')}</span>
+    </div>
+    ${groupedBarSVG(STAGE_COMPARE.categories.map(stageLabel), STAGE_COMPARE.lastMonth, STAGE_COMPARE.thisMonth, {h:190})}
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('engagementTitle')}</div><div class="panel-sub">${t('engagementSub')}</div></div></div>
+    ${hBarChartSVG(channelItems, {barH:20, gap:12})}
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><div><div class="panel-title">${t('topListingsTitle')}</div><div class="panel-sub">${t('topListingsSub')}</div></div></div>
+    ${hBarChartSVG(listingItems, {barH:22, gap:14, labelW:170})}
+  </div>`;
+}
+
 /* ============================= EVENT BINDING ============================= */
 function bindListingView(){
   document.querySelectorAll('[data-back]').forEach(el=>el.addEventListener('click', ()=>{ navigate(()=>{ state.view='dashboard'; }); }));
@@ -1661,6 +1877,7 @@ document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',
 document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click', ()=>{
   state.lang=b.dataset.lang; saveLang(state.lang); applyChrome(); renderApp();
 }));
+document.getElementById('analyticsNavBtn')?.addEventListener('click', ()=>{ navigate(()=>{ state.view='analytics'; }); });
 document.getElementById('refreshBtn')?.addEventListener('click', (e)=>{
   const btn = e.currentTarget;
   if(state.loading) return;
