@@ -54,7 +54,8 @@
   }
   h1,h2,h3{font-family:var(--font-display); text-wrap:balance; margin:0;}
   .mono{font-family:var(--font-mono); font-variant-numeric:tabular-nums;}
-  button{font-family:inherit; cursor:pointer;}
+  button{font-family:inherit; color:inherit; cursor:pointer;}
+  a{color:inherit;}
   :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
   .shell{max-width:1280px; margin:0 auto; padding:22px clamp(16px,4vw,32px) 72px;}
 
@@ -89,6 +90,14 @@
   }
   .pill-btn.active{background:var(--accent); color:var(--accent-ink);}
   .lang-group .pill-btn{padding:6px 10px; font-family:var(--font-mono); font-size:11.5px; font-weight:600;}
+  .cta-btn{
+    display:inline-flex; align-items:center; gap:7px; background:var(--accent); color:var(--accent-ink);
+    font-size:13px; font-weight:600; padding:9px 16px; border-radius:999px; text-decoration:none; white-space:nowrap;
+  }
+  .cta-btn:hover{filter:brightness(1.06);}
+  .cta-btn svg{width:15px; height:15px; flex:none;}
+  .cta-foot{display:flex; justify-content:center; margin:8px 0 18px;}
+  .cta-btn-lg{font-size:14px; padding:11px 22px;}
   .status-line{position:relative; margin-top:16px; font-size:14px; color:var(--ink-secondary); display:flex; align-items:center; gap:8px;}
   .status-dot{width:7px; height:7px; border-radius:50%; background:var(--status-good); flex:none;}
 
@@ -289,6 +298,10 @@
         </div>
       </div>
       <div class="topbar-right">
+        <a class="cta-btn" id="ctaTop" href="https://aimamoth-zohomail.zohobookings.in/#/meetSovon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4.5" width="14" height="12" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span id="ctaTopText">Book a call</span>
+        </a>
         <div class="lang-group pill-group" role="tablist" id="langGroup">
           <button class="pill-btn" data-lang="en">EN</button>
           <button class="pill-btn" data-lang="fr">FR</button>
@@ -311,6 +324,13 @@
   </div>
 
   <div id="app"></div>
+
+  <div class="cta-foot">
+    <a class="cta-btn cta-btn-lg" id="ctaBottom" href="https://aimamoth-zohomail.zohobookings.in/#/meetSovon" target="_blank" rel="noopener">
+      <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4.5" width="14" height="12" rx="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span id="ctaBottomText">Book a call</span>
+    </a>
+  </div>
 
   <footer id="footerNote">
     Never shown here: negotiation terms, offer amounts, or buyer contact details &mdash;
@@ -518,7 +538,8 @@ const UI = {
     stageOffer:'Offer', stageOfferOut:'Offer out', stageUnderContract:'Under contract', stageSold:'Sold',
     chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Call', chWebsite:'Website inquiry', chInstagram:'Instagram',
     chEmail:'Email inquiry', chDeanon:'Website Visitor Deanonymization', chAiSdr:'AI SDR',
-    countLabelInquiries:'inquiries', countLabelInterestedOutreached:'interested / outreached'
+    countLabelInquiries:'inquiries', countLabelInterestedOutreached:'interested / outreached',
+    bookCall:'Book a call'
   }
 };
 UI.fr = {
@@ -580,7 +601,8 @@ UI.fr = {
   stageOffer:'Offre', stageOfferOut:'Offre envoyée', stageUnderContract:'Sous compromis', stageSold:'Vendu',
   chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Appel', chWebsite:'Demande site web', chInstagram:'Instagram',
   chEmail:'Demande par e-mail', chDeanon:'Désanonymisation des visiteurs du site', chAiSdr:'SDR IA',
-  countLabelInquiries:'demandes', countLabelInterestedOutreached:'intéressés / contactés'
+  countLabelInquiries:'demandes', countLabelInterestedOutreached:'intéressés / contactés',
+  bookCall:'Réserver un appel'
 };
 UI.es = {
   brandTagline:'Fort Lauderdale, FL · Plan Corredor Principal', sampleTag:'Datos de muestra · ilustrativos',
@@ -641,7 +663,8 @@ UI.es = {
   stageOffer:'Oferta', stageOfferOut:'Oferta enviada', stageUnderContract:'Bajo contrato', stageSold:'Vendido',
   chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Llamada', chWebsite:'Consulta del sitio web', chInstagram:'Instagram',
   chEmail:'Consulta por correo electrónico', chDeanon:'Desanonimización de visitantes del sitio', chAiSdr:'SDR de IA',
-  countLabelInquiries:'consultas', countLabelInterestedOutreached:'interesados / contactados'
+  countLabelInquiries:'consultas', countLabelInterestedOutreached:'interesados / contactados',
+  bookCall:'Reservar una llamada'
 };
 UI.it = {
   brandTagline:'Fort Lauderdale, FL · Piano Broker Responsabile', sampleTag:'Dati di esempio · a scopo illustrativo',
@@ -702,7 +725,8 @@ UI.it = {
   stageOffer:'Offerta', stageOfferOut:'Offerta inviata', stageUnderContract:'Sotto contratto', stageSold:'Venduto',
   chWhatsapp:'WhatsApp', chSms:'SMS', chCall:'Chiamata', chWebsite:'Richiesta dal sito web', chInstagram:'Instagram',
   chEmail:'Richiesta via email', chDeanon:'Deanonimizzazione visitatori del sito', chAiSdr:'SDR IA',
-  countLabelInquiries:'richieste', countLabelInterestedOutreached:'interessati / contattati'
+  countLabelInquiries:'richieste', countLabelInterestedOutreached:'interessati / contattati',
+  bookCall:'Prenota una chiamata'
 };
 function t(key){ const d = UI[state.lang]; return (d && d[key]!=null) ? d[key] : (UI.en[key]!=null ? UI.en[key] : key); }
 function stageLabel(stage){ return t(STAGE_KEY[stage]) || stage; }
@@ -1025,6 +1049,8 @@ function applyChrome(){
   document.getElementById('tagline').textContent = t('brandTagline');
   document.getElementById('demoTag').textContent = t('sampleTag');
   document.getElementById('footerNote').innerHTML = t('footerNote');
+  document.getElementById('ctaTopText').textContent = t('bookCall');
+  document.getElementById('ctaBottomText').textContent = t('bookCall');
   document.getElementById('langGroup').setAttribute('aria-label', t('languageAria'));
   document.getElementById('rangeGroup').setAttribute('aria-label', t('dateRangeAria'));
   document.getElementById('refreshBtn').setAttribute('aria-label', t('refreshAria'));
