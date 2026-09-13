@@ -338,7 +338,7 @@
           <path d="M20 20 L27 13 L22 22 L13 27 Z" fill="currentColor"/>
         </svg>
         <div class="brand-text">
-          <h1>Meridian Yacht Sales</h1>
+          <h1 id="companyNameHeading">Meridian Yacht Sales</h1>
           <p id="tagline">Fort Lauderdale, FL &middot; Managing Broker plan</p>
         </div>
       </div>
@@ -402,6 +402,23 @@
 </div>
 
 <script>
+/* ============================= WHITE-LABEL: COMPANY NAME (from URL) =============================
+   Same file serves every prospect — no per-business copy, no build step, no hosting cost per link.
+   Append ?company=Some+Yacht+Group to the shared URL and this file swaps the name in at load time.
+   Example outreach link: https://your-artifact-url/?company=Anchor%20Bay%20Yachts                  */
+const DEFAULT_COMPANY_NAME = 'Meridian Yacht Sales';
+const COMPANY_NAME = (() => {
+  try {
+    const raw = new URLSearchParams(window.location.search).get('company');
+    return raw && raw.trim() ? raw.trim() : DEFAULT_COMPANY_NAME;
+  } catch (e) { return DEFAULT_COMPANY_NAME; }
+})();
+document.addEventListener('DOMContentLoaded', () => {
+  const h = document.getElementById('companyNameHeading');
+  if (h) h.textContent = COMPANY_NAME;
+  document.title = COMPANY_NAME;
+});
+
 /* ============================= ICONS / ILLUSTRATIONS ============================= */
 const ICONS = {
   chat:'<path d="M6 8h16v10H12l-5 4v-4H6z" fill="currentColor"/>',
@@ -1054,7 +1071,7 @@ const TX = {
       }
     },
     sdrChat:{visitor:'D. Ferreira', messages:[
-      {from:'bot', text:'Hi, thanks for stopping by Meridian Yacht Sales. I’m the virtual assistant here. Are you looking into a specific yacht today?'},
+      {from:'bot', text:'Hi, thanks for stopping by '+COMPANY_NAME+'. I’m the virtual assistant here. Are you looking into a specific yacht today?'},
       {from:'visitor', text:'yeah the sunseeker 74'},
       {from:'bot', text:'Great choice. The Sunseeker 74 “Isla Mar” is a 2019 model, 74 feet, listed at $2,150,000. She’s a single owner boat with full service records and a hydraulic swim platform. Want the full spec sheet?'},
       {from:'visitor', text:'yes please, and is she still available?'},
@@ -1150,7 +1167,7 @@ TX.fr = {
     }
   },
   sdrChat:{visitor:'D. Ferreira', messages:[
-    {from:'bot', text:'Bonjour, merci de votre visite chez Meridian Yacht Sales. Je suis l’assistant virtuel ici. Vous vous intéressez à un bateau en particulier aujourd’hui ?'},
+    {from:'bot', text:'Bonjour, merci de votre visite chez '+COMPANY_NAME+'. Je suis l’assistant virtuel ici. Vous vous intéressez à un bateau en particulier aujourd’hui ?'},
     {from:'visitor', text:'oui le sunseeker 74'},
     {from:'bot', text:'Excellent choix. Le Sunseeker 74 « Isla Mar » est un modèle 2019, 74 pieds, affiché à 2 150 000 $. Propriétaire unique, historique d’entretien complet et plateforme de bain hydraulique. Vous voulez la fiche technique complète ?'},
     {from:'visitor', text:'oui merci, et elle est toujours disponible ?'},
@@ -1245,7 +1262,7 @@ TX.es = {
     }
   },
   sdrChat:{visitor:'D. Ferreira', messages:[
-    {from:'bot', text:'Hola, gracias por visitar Meridian Yacht Sales. Soy el asistente virtual aquí. ¿Le interesa algún barco en concreto hoy?'},
+    {from:'bot', text:'Hola, gracias por visitar '+COMPANY_NAME+'. Soy el asistente virtual aquí. ¿Le interesa algún barco en concreto hoy?'},
     {from:'visitor', text:'si el sunseeker 74'},
     {from:'bot', text:'Buena elección. El Sunseeker 74 “Isla Mar” es un modelo de 2019, 74 pies, publicado en 2.150.000 $. Único propietario, historial de mantenimiento completo y plataforma de baño hidráulica. ¿Quiere la ficha técnica completa?'},
     {from:'visitor', text:'si por favor, y sigue disponible?'},
@@ -1340,7 +1357,7 @@ TX.it = {
     }
   },
   sdrChat:{visitor:'D. Ferreira', messages:[
-    {from:'bot', text:'Ciao, grazie per essere passato da Meridian Yacht Sales. Sono l’assistente virtuale qui. Ti interessa una barca in particolare oggi?'},
+    {from:'bot', text:'Ciao, grazie per essere passato da '+COMPANY_NAME+'. Sono l’assistente virtuale qui. Ti interessa una barca in particolare oggi?'},
     {from:'visitor', text:'si il sunseeker 74'},
     {from:'bot', text:'Ottima scelta. Il Sunseeker 74 “Isla Mar” è un modello del 2019, 74 piedi, in vendita a 2.150.000 $. Unico proprietario, documentazione di manutenzione completa e piattaforma di poppa idraulica. Vuoi la scheda tecnica completa?'},
     {from:'visitor', text:'si grazie, ed è ancora disponibile?'},
